@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./day-list.component.css']
 })
 export class DayListComponent implements OnInit {
+  days : Array<String> = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
 
   constructor() { }
 
