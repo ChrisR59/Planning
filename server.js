@@ -29,6 +29,19 @@ app.get('/GetList',(req,res) => {
     res.json(activities);
 })
 
+app.post('/GetPlanning',(req,res) => {
+    const data = req.body;
+    const result = [];
+
+    planning.forEach(element => {
+        if(element.day == data.day){
+            result.push(element);
+        }
+    });
+
+    res.json(result);
+})
+
 //Add new activity
 app.post('/AddActivity', (req,res) => {
     const data = req.body;

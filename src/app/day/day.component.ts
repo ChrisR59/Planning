@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-day',
@@ -7,9 +8,20 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DayComponent implements OnInit {
   @Input() day;
-  constructor() { }
+  activities : Array<any>;
+
+  constructor(private api :ApiService) { }
 
   ngOnInit() {
+    this.GetPlanning();
+  }
+
+  GetPlanning = () => {
+    this.api.GetPlanning('GetPlanning', {day : this.day}).subscribe((res :any) => {
+      if(res){
+        this.activities = res;
+      }
+    })
   }
 
 }
