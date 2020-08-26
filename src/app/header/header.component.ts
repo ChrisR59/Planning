@@ -8,11 +8,16 @@ import { ApiService } from "../api.service";
 })
 export class HeaderComponent implements OnInit {
   activity:string;
+  activityPlanning:string;
+  day:string;
   activities : Array<string>;
 
   constructor(private api : ApiService) { }
 
   ngOnInit() {
+    this.api.GetList('GetList').subscribe((res:any) => {
+      this.activities = res;
+    })
   }
 
   NewActivity = () => {
@@ -21,6 +26,17 @@ export class HeaderComponent implements OnInit {
         if(res){
           this.activity = null;
           alert('activité ajouté');
+        }
+      });
+    }
+  }
+
+  AddPlanning = () => {
+    if(this.activityPlanning != null && this.day != null){
+      this.api.AddPlanning('AddPlanning', {id : (this.activities.length + 1), day : this.day, name : this.activityPlanning}).subscribe((res:any) => {
+        if(res){
+          this.activity = null;
+          alert('activité ajouté au planning');
         }
       });
     }

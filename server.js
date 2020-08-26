@@ -3,6 +3,7 @@ const express = require('express'),
     fs = require('fs'),
     app = express(),
     activities = JSON.parse(fs.readFileSync('data/activity.json', 'utf-8')),
+    planning = JSON.parse(fs.readFileSync('data/planning.json', 'utf-8')),
     port = 8085;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +20,7 @@ app.use(function (req, res, next) {
 //Mettre à jour les fichiers users.json
 const writeFiles = () => {
     fs.writeFileSync('data/activity.json', JSON.stringify(activities));
+    fs.writeFileSync('data/planning.json', JSON.stringify(planning));
 }
 
 app.use(express.static(__dirname + '/dist'));
@@ -31,6 +33,14 @@ app.get('/GetList',(req,res) => {
 app.post('/AddActivity', (req,res) => {
     const data = req.body;
     activities.push(data);
+    writeFiles();
+    res.json({error:false});
+})
+
+//Add activity => Planning
+app.post('/AddPlanning', (req,res) => {
+    const data = req.body;
+    planning.push(data);
     writeFiles();
     res.json({error:false});
 })

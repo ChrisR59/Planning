@@ -13,6 +13,10 @@ export class ApiService {
     return this.http.get(this.urlBase + link);
   }
 
+  AddPlanning = (link,data) => {
+    return this.http.post(this.urlBase + link, data);
+  }
+
   AddActivity = (link,data) => {
     return this.http.post(this.urlBase + link, data);
   }
