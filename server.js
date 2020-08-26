@@ -23,7 +23,9 @@ const writeFiles = () => {
 
 app.use(express.static(__dirname + '/dist'));
 
-
+app.get('/GetList',(req,res) => {
+    res.json(activities);
+})
 
 //Add new activity
 app.post('/AddActivity', (req,res) => {

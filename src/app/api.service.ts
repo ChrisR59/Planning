@@ -8,7 +8,9 @@ export class ApiService {
   urlBase = "http://localhost:8085/";
 
   constructor(private http : HttpClient) { }
-  test = (data) => {
+  
+  GetList = (link) => {
+    return this.http.get(this.urlBase + link);
   }
 
   AddActivity = (link,data) => {

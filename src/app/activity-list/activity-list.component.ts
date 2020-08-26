@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-activity-list',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./activity-list.component.css']
 })
 export class ActivityListComponent implements OnInit {
+  activities;
 
-  constructor() { }
+  constructor(private api : ApiService) { }
 
   ngOnInit() {
+    this.getContact();
+  }
+
+  getContact = () => {
+    this.api.GetList('GetList').subscribe((res:any) => {
+      this.activities = res;
+    })
   }
 
 }
