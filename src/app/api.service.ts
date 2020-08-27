@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   urlBase = "http://localhost:8085/";
+  //ecouteur
+  observableActivities : Subject<any> = new Subject<any>();
+  observableActivitiesDay : Subject<any> = new Subject<any>();
 
   constructor(private http : HttpClient) { }
   

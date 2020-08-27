@@ -13,6 +13,10 @@ export class ActivityListComponent implements OnInit {
 
   ngOnInit() {
     this.getContact();
+
+    this.api.observableActivities.subscribe((valeur)=> {
+      this.getContact();
+    })
   }
 
   getContact = () => {

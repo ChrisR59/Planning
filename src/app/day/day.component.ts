@@ -14,6 +14,10 @@ export class DayComponent implements OnInit {
 
   ngOnInit() {
     this.GetPlanning();
+
+    this.api.observableActivitiesDay.subscribe((valeur)=> {
+      this.GetPlanning();
+    })
   }
 
   GetPlanning = () => {

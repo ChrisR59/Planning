@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
       this.api.AddActivity('AddActivity', {name : this.activity}).subscribe((res:any) => {
         if(res){
           this.activity = null;
+          this.api.observableActivities.next();
           alert('activité ajouté');
         }
       });
@@ -36,6 +37,7 @@ export class HeaderComponent implements OnInit {
       this.api.AddPlanning('AddPlanning', {id : (this.activities.length + 1), day : this.day, name : this.activityPlanning}).subscribe((res:any) => {
         if(res){
           this.activity = null;
+          this.api.observableActivitiesDay.next();
           alert('activité ajouté au planning');
         }
       });
