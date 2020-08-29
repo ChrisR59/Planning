@@ -8,21 +8,30 @@ import { ApiService } from '../api.service';
 })
 export class ActivityListComponent implements OnInit {
   activities;
+  activity;
 
   constructor(private api : ApiService) { }
 
   ngOnInit() {
-    this.getContact();
+    this.getList();
 
     this.api.observableActivities.subscribe((valeur)=> {
-      this.getContact();
+      this.getList();
     })
   }
 
-  getContact = () => {
+  getList = () => {
     this.api.GetList('GetList').subscribe((res:any) => {
       this.activities = res;
     })
   }
 
+  DeleteActivity = (a) => {
+    this.api.DeleteActivity('DeleteActivity',a).subscribe((res:any) => {
+      if(res){
+        this.api.observableActivities.next();
+        alert('Activité supprimé');
+      }
+    })
+  }
 }

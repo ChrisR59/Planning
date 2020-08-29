@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, Authorization, X-Requested-With, X-XSRF-TOKEN, Content-Type, Accept");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
     next();
 });
 
@@ -25,16 +25,16 @@ const writeFiles = () => {
 
 app.use(express.static(__dirname + '/dist'));
 
-app.get('/GetList',(req,res) => {
+app.get('/GetList', (req, res) => {
     res.json(activities);
 })
 
-app.post('/GetPlanning',(req,res) => {
+app.post('/GetPlanning', (req, res) => {
     const data = req.body;
     const result = [];
 
     planning.forEach(element => {
-        if(element.day == data.day){
+        if (element.day == data.day) {
             result.push(element);
         }
     });
@@ -43,19 +43,38 @@ app.post('/GetPlanning',(req,res) => {
 })
 
 //Add new activity
-app.post('/AddActivity', (req,res) => {
+app.post('/AddActivity', (req, res) => {
     const data = req.body;
     activities.push(data);
     writeFiles();
-    res.json({error:false});
+    res.json({error: false});
 })
 
 //Add activity => Planning
-app.post('/AddPlanning', (req,res) => {
+app.post('/AddPlanning', (req, res) => {
     const data = req.body;
     planning.push(data);
     writeFiles();
-    res.json({error:false});
+    res.json({ error: false });
 })
+
+
+//Delete activity 
+app.post('/DeleteActivity', (req, res) => {
+    const data = req.body;
+    let status = false;
+
+    for (let i = 0; i < activities.length; i++) {
+        if (activities[i].id === data.id) {
+            activities.splice(i, 1);
+            status = true;
+            break;
+        }
+    }
+
+    writeFiles();
+    res.json({ status: status });
+})
+
 
 app.listen(port);

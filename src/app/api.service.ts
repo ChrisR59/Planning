@@ -40,4 +40,11 @@ export class ApiService {
   AddActivity = (link,data) => {
     return this.http.post(this.urlBase + link, data);
   }
+
+  /*
+  * delete activity
+  */
+  DeleteActivity = (link,data) => {
+    return this.http.post(this.urlBase + link, data);
+  }
 }
