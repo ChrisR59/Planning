@@ -28,4 +28,12 @@ export class DayComponent implements OnInit {
     })
   }
 
+  DeleteActivity = (a) => {
+    this.api.DeleteActivity('DeleteActivityPlanning',a).subscribe((res:any) => {
+      if(res){
+        this.api.observableActivitiesDay.next();
+        alert('Activité supprimé');
+      }
+    })
+  }
 }

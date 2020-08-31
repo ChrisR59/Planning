@@ -84,5 +84,22 @@ app.post('/DeleteActivity', (req, res) => {
     res.json({ status: status });
 })
 
+//Delete activity Planning 
+app.post('/DeleteActivityPlanning', (req, res) => {
+    const data = req.body;
+    let status = false;
+
+    for (let i = 0; i < planning.length; i++) {
+        if (planning[i].id === data.id) {
+            planning.splice(i, 1);
+            status = true;
+            break;
+        }
+    }
+
+    writeFiles();
+    res.json({ status: status });
+})
+
 
 app.listen(port);

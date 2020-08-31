@@ -25,7 +25,6 @@ export class HeaderComponent implements OnInit {
     
     this.api.GetIdActivityPlanning('GetIdPlanning').subscribe((res:any) => {
       this.idActivityPlanning = res;
-      console.log(this.idActivityPlanning)
     })
 
   }
