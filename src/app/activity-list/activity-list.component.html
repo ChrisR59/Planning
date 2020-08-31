@@ -1,8 +1,2 @@
-<div class="row my-1" *ngFor="let a of activities">
-    <div class="col offset-1">
-        {{ a.name }}
-    </div>
-    <div class="col-2">
-        <button class="btn btn-danger" (click)="DeleteActivity(a)">X</button>
-    </div>
-</div>
+<h4>Liste des activitées</h4>
+<app-activity *ngFor="let a of activities" [activity]='a'></app-activity>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -23,15 +23,6 @@ export class ActivityListComponent implements OnInit {
   getList = () => {
     this.api.GetList('GetList').subscribe((res:any) => {
       this.activities = res;
-    })
-  }
-
-  DeleteActivity = (a) => {
-    this.api.DeleteActivity('DeleteActivity',a).subscribe((res:any) => {
-      if(res){
-        this.api.observableActivities.next();
-        alert('Activité supprimé');
-      }
     })
   }
 }
