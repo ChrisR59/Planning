@@ -10,21 +10,24 @@ export class HeaderComponent implements OnInit {
   activity: string;
   activityPlanning: string;
   day: string;
-  activities: Array<string>;
+  activities: Array<any>;
   idActivity: Number;
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService) {
+   }
 
   ngOnInit() {
     this.GetList();
     this.api.observableActivities.subscribe((valeur)=> {
       this.GetList();
     })
+
+
   }
   // probleme inscrementation id + actualisation de la liste
   NewActivity = () => {
     if (this.activity != null) {
-      this.api.AddActivity('AddActivity', { id: this.activities.length + 1, name: this.activity }).subscribe((res: any) => {
+      this.api.AddActivity('AddActivity', { id: this.idActivity, name: this.activity }).subscribe((res: any) => {
         if (!res.error) {
           this.activity = null;
           this.api.observableActivities.next();
@@ -49,8 +52,12 @@ export class HeaderComponent implements OnInit {
   GetList = () => {
     this.api.GetList('GetList').subscribe((res: any) => {
       this.activities = res;
-      this.idActivity = this.activities.length;
+
+      if(this.activities.length == 0){
+        this.idActivity = 1;
+      }else{
+        this.idActivity = this.activities[this.activities.length-1].id + 1;
+      }
     })
   }
-
 }
