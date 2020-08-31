@@ -11,7 +11,8 @@ export class HeaderComponent implements OnInit {
   activityPlanning: string;
   day: string;
   activities: Array<any>;
-  idActivity: Number;
+  idActivity: number;
+  idActivityPlanning: number;
 
   constructor(private api: ApiService) {
    }
@@ -21,7 +22,11 @@ export class HeaderComponent implements OnInit {
     this.api.observableActivities.subscribe((valeur)=> {
       this.GetList();
     })
-
+    
+    this.api.GetIdActivityPlanning('GetIdPlanning').subscribe((res:any) => {
+      this.idActivityPlanning = res;
+      console.log(this.idActivityPlanning)
+    })
 
   }
   // probleme inscrementation id + actualisation de la liste
@@ -39,9 +44,11 @@ export class HeaderComponent implements OnInit {
 
   AddPlanning = () => {
     if (this.activityPlanning != null && this.day != null) {
-      this.api.AddPlanning('AddPlanning', { id: (this.activities.length + 1), day: this.day, name: this.activityPlanning }).subscribe((res: any) => {
+      this.api.AddPlanning('AddPlanning', { id: this.idActivityPlanning, day: this.day, name: this.activityPlanning }).subscribe((res: any) => {
         if (res) {
           this.activity = null;
+          this.idActivityPlanning++;
+          console.log(this.idActivityPlanning)
           this.api.observableActivitiesDay.next();
           alert('activité ajouté au planning');
         }

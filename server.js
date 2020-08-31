@@ -42,6 +42,14 @@ app.post('/GetPlanning', (req, res) => {
     res.json(result);
 })
 
+app.get('/GetIdPlanning', (req,res) => {
+    let result = 1;
+    if(planning.length != 0){
+        result = planning[planning.length-1].id;
+    }
+    res.json(result);
+})
+
 //Add new activity
 app.post('/AddActivity', (req, res) => {
     const data = req.body;

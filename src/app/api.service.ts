@@ -27,6 +27,10 @@ export class ApiService {
     return this.http.post(this.urlBase + link, data);
   }
 
+  GetIdActivityPlanning = (link) => {
+    return this.http.get(this.urlBase + link);
+  }
+
   /*
   * add actitivy in the planning
   */
