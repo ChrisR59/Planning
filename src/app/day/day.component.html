@@ -1,11 +1,14 @@
-<div class="day text-center h-100 bg-danger">
+<div class="text-center h-100 bg-danger">
     <h2>{{day}}</h2>
-    <div class="row my-1" *ngFor="let a of activities">
-        <div class="col-7 offset-1">
-            {{ a.name }}
-        </div>
-        <div class="col-2">
-            <i class="fa fa-times text-danger " (click)="DeleteActivity(a)"></i>
+    <hr>
+    <div class="mt-2">
+        <div class="row m-1" *ngFor="let a of activities">
+            <div class="col-7 offset-1">
+                {{ a.name }}
+            </div>
+            <div class="col-2">
+                <i class="fa fa-times text-danger " (click)="DeleteActivity(a)"></i>
+            </div>
         </div>
     </div>
 </div>

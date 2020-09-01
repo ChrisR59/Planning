@@ -1,2 +1,5 @@
-.day {
+app-day {
+    width : 205px;
+    height : 500px;
+    border : 1px solid black;
 }
