@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
   constructor(private api: ApiService) {}
 
   ngOnInit() {
-
     this.GetList();
     this.api.observableActivities.subscribe((valeur)=> {
       this.GetList();
@@ -30,7 +29,6 @@ export class HeaderComponent implements OnInit {
     this.api.GetIdActivityPlanning('GetIdPlanning').subscribe((res:any) => {
       this.idActivityPlanning = res;
     })
-
   }
   
   NewActivity = () => {
@@ -46,13 +44,11 @@ export class HeaderComponent implements OnInit {
   }
 
   AddPlanning = () => {
-    console.log(this.formAddPlanning.value.activityPlanning);
     if (this.formAddPlanning.value.activityPlanning != null && this.formAddPlanning.value.day != null) {
       this.api.AddPlanning('AddPlanning', { id: this.idActivityPlanning, day: this.formAddPlanning.value.day, name: this.formAddPlanning.value.activityPlanning }).subscribe((res: any) => {
         if (res) {
           this.activity = null;
           this.idActivityPlanning++;
-          console.log(this.idActivityPlanning)
           this.api.observableActivitiesDay.next();
           alert("L'activité a été ajouté au planning");
         }
