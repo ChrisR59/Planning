@@ -1,9 +1,8 @@
-<div class="row mx-2 mt-2 mb-5">
-    <div class="col-6">
-        <h4>Créer une activité</h4>
+<div class="row mx-2 mt-5">
+    <div class="col-4">
         <div class="row">
             <div class="col">
-                <input class="form-control" type="text" [(ngModel)]="activity" required>
+                <input class="form-control" type="text" [(ngModel)]="activity" placeholder="Créer une activité" required>
             </div>
             <div class="col">
                 <button class="btn btn-primary" (click)="NewActivity()">Créer</button>
@@ -11,27 +10,26 @@
         </div>
     </div>
     <div class="col-6">
-        <h4>Placer une activité</h4>
-        <div class="row">
-            <div class="col">
-                <select [(ngModel)]="activityPlanning">
-                    <option *ngFor="let a of activities" value="{{ a.name }}">{{ a.name }}</option>
-                </select>
+        <form [formGroup]="formAddPlanning" >
+            <div class="row">
+                <h4 class="col">Placer une activité :</h4>
+                <div class="col-3">
+                    <select class="btn btn-light" formControlName="activityPlanning">
+                        <option value="">Activité</option>
+                        <option *ngFor="let a of activities">{{a.name}}</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select class="btn btn-light" formControlName="day">
+                        <option value="">Jours</option>
+                        <option *ngFor="let day of days">{{day}}</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary" (click)="AddPlanning()">Placer</button>
+                </div>
             </div>
-            <div class="col">
-                <select [(ngModel)]="day">
-                    <option value="Lundi">Lundi</option>
-                    <option value="Mardi">Mardi</option>
-                    <option value="Mercredi">Mercredi</option>
-                    <option value="Jeudi">Jeudi</option>
-                    <option value="Vendredi">Vendredi</option>
-                    <option value="Samedi">Samedi</option>
-                    <option value="Dimanche">Dimanche</option>
-                </select>
-            </div>
-            <div class="col">
-                <button class="btn btn-primary" (click)="AddPlanning()">Placer</button>
-            </div>
-        </div>
+
+        </form>
     </div>
 </div>

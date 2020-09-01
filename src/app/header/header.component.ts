@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../api.service";
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -7,17 +8,20 @@ import { ApiService } from "../api.service";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  formAddPlanning : FormGroup = new FormGroup({
+    activityPlanning : new FormControl(''),
+    day : new FormControl('')
+  });
   activity: string;
-  activityPlanning: string;
-  day: string;
+  days : Array<any> = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
   activities: Array<any>;
   idActivity: number;
   idActivityPlanning: number;
 
-  constructor(private api: ApiService) {
-   }
+  constructor(private api: ApiService) {}
 
   ngOnInit() {
+
     this.GetList();
     this.api.observableActivities.subscribe((valeur)=> {
       this.GetList();
@@ -28,7 +32,7 @@ export class HeaderComponent implements OnInit {
     })
 
   }
-  // probleme inscrementation id + actualisation de la liste
+  
   NewActivity = () => {
     if (this.activity != null) {
       this.api.AddActivity('AddActivity', { id: this.idActivity, name: this.activity }).subscribe((res: any) => {
@@ -42,14 +46,15 @@ export class HeaderComponent implements OnInit {
   }
 
   AddPlanning = () => {
-    if (this.activityPlanning != null && this.day != null) {
-      this.api.AddPlanning('AddPlanning', { id: this.idActivityPlanning, day: this.day, name: this.activityPlanning }).subscribe((res: any) => {
+    console.log(this.formAddPlanning.value.activityPlanning);
+    if (this.formAddPlanning.value.activityPlanning != null && this.formAddPlanning.value.day != null) {
+      this.api.AddPlanning('AddPlanning', { id: this.idActivityPlanning, day: this.formAddPlanning.value.day, name: this.formAddPlanning.value.activityPlanning }).subscribe((res: any) => {
         if (res) {
           this.activity = null;
           this.idActivityPlanning++;
           console.log(this.idActivityPlanning)
           this.api.observableActivitiesDay.next();
-          alert('activité ajouté au planning');
+          alert("L'activité a été ajouté au planning");
         }
       });
     }
