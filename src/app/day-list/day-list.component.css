@@ -1,5 +1,13 @@
 app-day {
     width : 205px;
     height : 500px;
-    border : 1px solid black;
+    border-radius: 30px;
+}
+
+app-day:nth-child(odd){
+    background-color :#C2DBF0;
+}
+
+app-day:nth-child(even){
+    background-color : #3A90D6;
 }
